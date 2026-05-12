@@ -23,6 +23,7 @@ Clone this repository and `cd` into the assignment you're working on:
 git clone git@github.com:tinkercademy-bootcamp/2026-coding-labs.git
 cd 2026-coding-labs/assignment1
 ```
+(Replace assignment1 with the assignment you're working on)
 
 Each assignment has its own `README.md` with build and run instructions. To pull updates later:
 
