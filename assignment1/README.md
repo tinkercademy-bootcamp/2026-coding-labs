@@ -88,6 +88,7 @@ You’ve been waiting for days to get your Marriage Pact initials this year, and
 > **Requirements**
 > - **No raw `for` loops.** Use a `std::ranges` algorithm such as `std::ranges::copy_if`, or a `views::filter` pipeline. Use a **projection** (`&` to a lambda or a projection argument) where it makes the call clearer.
 > - Take `students` as `const std::vector<std::string>&`.
+> - Include all matches. This includes the applicant looking for a match themselves.
 > - See: <https://en.cppreference.com/w/cpp/algorithm/ranges>
 
 ## Part 4: `get_match`
