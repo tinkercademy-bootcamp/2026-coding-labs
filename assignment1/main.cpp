@@ -55,6 +55,7 @@ std::string initials(std::string_view name) {
  *     piped into a vector). Use a projection where it makes the call
  *     clearer.
  *   - Take `students` as `const std::vector<std::string>&`.
+ *   - Include all matches. This includes the applicant looking for a match themselves.
  */
 std::vector<std::string> find_matches(std::string_view name,
                                       const std::vector<std::string>& students) {
