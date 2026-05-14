@@ -29,6 +29,12 @@ Clone this repository and `cd` into the assignment you're working on:
 git clone git@github.com:tinkercademy-bootcamp/2026-coding-labs.git
 cd 2026-coding-labs/assignment1
 ```
+(Replace file paths with your respective repository name. If your GitHub username was `tk-machine-user` and your repository was named `2026-cpp-bootcamp`, the commands would be:
+```sh
+git clone git@github.com:tk-machine-user/2026-cpp-bootcamp.git
+cd 2026-cpp-bootcamp/assignment1
+```
+)
 
 Each assignment has its own `README.md` with build and run instructions. To pull updates later:
 
