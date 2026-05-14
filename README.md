@@ -23,21 +23,23 @@ Create your own private repository with the "Use this template" button, followed
 Make sure it is **private**.
 <img src="docs/private.png" alt="Private repo">
 
-Clone this repository and `cd` into the assignment you're working on:
+Clone this repository:
 
 ```sh
 git clone git@github.com:tinkercademy-bootcamp/2026-coding-labs.git
-cd 2026-coding-labs/assignment1
+cd 2026-coding-labs
+git remote add -t main -f upstream https://github.com/tinkercademy-bootcamp/2026-coding-labs.git
 ```
 (Replace file paths with your respective repository name. If your GitHub username was `tk-machine-user` and your repository was named `2026-cpp-bootcamp`, the commands would be:
 ```sh
 git clone git@github.com:tk-machine-user/2026-cpp-bootcamp.git
-cd 2026-cpp-bootcamp/assignment1
+cd 2026-cpp-bootcamp
+git remote add -t main -f upstream https://github.com/tinkercademy-bootcamp/2026-coding-labs.git # this line doesn't change
 ```
 )
 
 Each assignment has its own `README.md` with build and run instructions. To pull updates later:
 
 ```sh
-git pull origin main
+git pull upstream main
 ```
