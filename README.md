@@ -17,6 +17,12 @@ You need:
 
 ## Getting Started
 
+Create your own private repository with the "Use this template" button, followed by "Create new repository".
+<img src="docs/newrepo.png" alt="Use this template button">
+
+Make sure it is **private**.
+<img src="docs/private.png" alt="Private repo">
+
 Clone this repository and `cd` into the assignment you're working on:
 
 ```sh
