@@ -1,19 +1,19 @@
-# Exercise 6
+# Assignment 11
 
 **Update this README with your answers to the questions below.**
 
 ## Adding Third Party Libraries or Source Code to Your Project
 
 - There is a new file `src/spdlog-hello-world-main.cc`
-- It uses the spdlog and fmt libraries. 
-  [More info here](https://github.com/gabime/spdlog) - Fast C++ logging 
+- It uses the spdlog and fmt libraries.
+  [More info here](https://github.com/gabime/spdlog) - Fast C++ logging
   library with various sink types and formatting options
 - How do you compile this file using the `g++` CLI?
 - What do you need to change in your makefile to use this library?
 - How many different ways can this library be added into your project?
 - What are the tradeoffs in the different ways?
 - Why are there so many different ways to do it?
-  
+
 ## Static Linking vs Dynamic Linking
 
 - What are the differences between static linking and dynamic linking?

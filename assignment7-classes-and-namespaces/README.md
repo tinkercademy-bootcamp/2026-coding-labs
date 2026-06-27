@@ -1,4 +1,4 @@
-# Exercise 5
+# Assignment 7
 
 **Update this README with your answers to the questions below.**
 
@@ -6,11 +6,11 @@
 
 - What's an easy way to identify the changes in source code from one exercise
   to another?
-    
+
 ## Using Classes
 
 - Here is one way to separate out the code into multiple files
-- Is this the best way to do it? 
+- Is this the best way to do it?
 - What are the advantages and disadvantages?
 
 ## Introduction to Namespace
@@ -29,7 +29,7 @@
 ## Programming Sense of Taste
 
 - How do you judge what makes a particular choice of namespace and directory
-  structure? 
+  structure?
 - How do you judge what makes a good naming convention or programming style?
 
 ## "Senses" in Programming
