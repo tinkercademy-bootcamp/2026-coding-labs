@@ -2,7 +2,7 @@
   <img src="docs/art.png" />
 </p>
 
-# Assignment 2: Unique Pointer
+# Assignment 4: Unique Pointer
 
 ## Overview
 
@@ -22,7 +22,7 @@ There are three files you'll work with for this assignment:
 
 ## Running your code
 
-To run your code, first you'll need to compile it. Open up a terminal (if you are using VSCode, hit <kbd>Ctrl+\`</kbd> or go to **Terminal > New Terminal** at the top). Then make sure that you are in the `assignment2/` directory and run:
+To run your code, first you'll need to compile it. Open up a terminal (if you are using VSCode, hit <kbd>Ctrl+\`</kbd> or go to **Terminal > New Terminal** at the top). Then make sure that you are in the `assignment4-unique-ptr-move-semantics-raii/` directory and run:
 
 ```sh
 g++ -std=c++20 main.cpp -o main
@@ -58,8 +58,8 @@ As you are following the instructions below, we recommend intermittently compili
 
 In the first part of the assignment, you will implement one of the smart pointers we discussed in Thursday's lecture: `unique_ptr`. The `unique_ptr` you will implement is a simpler version of the standard library's [`std::unique_ptr`](https://en.cppreference.com/w/cpp/memory/unique_ptr). Recall that a `unique_ptr` represents a pointer to dynamically allocated memory that is owned by a single (*unique*) variable. When that variable goes out of scope, it automatically cleans up the allocated memory that it owns by calling `delete`. This behaviour is known as RAII (resource acquisition is initialization). **For our purposes, you may assume that `unique_ptr` points to a single element of type T. You will not have to call `delete[]` at any point or handle pointers to dynamically allocated arrays.**
 
-> [!IMPORTANT]  
-> ##### `short_answer.txt`  
+> [!IMPORTANT]
+> ##### `short_answer.txt`
 > **Q1:** List one or two benefits of using RAII to manage memory instead manually calling `new` and `delete`.
 
 > [!NOTE]
@@ -100,7 +100,7 @@ You will implement the basic pointer interface for a `unique_ptr` by implementin
 At this point, our `unique_ptr` will behave as if it were a raw pointer, but it will not actually do any automatic memory management such as deallocating memory when a `unique_ptr` variable goes out of scope. Add to that, our pointer is not *unique*: multiple copies of it (all pointing to the same memory) can be made indiscriminantly. For example, let's assume that our `unique_ptr` properly cleans up its data when it goes out of scope. Consider the following code block:
 
 ```cpp
-int main() 
+int main()
 {
   unique_ptr<int> ptr1 = make_unique<int>(5);
 
@@ -131,8 +131,8 @@ In order to achieve these goals — automatic deallocation of memory, no copying
 
 After implementing the above functions, you should be passing all of the tests for **Part 1**.
 
-> [!IMPORTANT]  
-> ##### `short_answer.txt`  
+> [!IMPORTANT]
+> ##### `short_answer.txt`
 > **Q2:** When implementing move semantics for a `unique_ptr`, for example in the move constructor `unique_ptr(unique_ptr&& other)`, it is essential that we set the underlying pointer of the `other` parameter to `nullptr` before exiting the function. Explain in your own words what problem would arise if we did not.
 
 ## Part 2: Using `unique_ptr`
@@ -164,10 +164,10 @@ int main()
 // Destructing node with value '3'
 ```
 
-Notice that we didn't have to make any calls to `delete`! The RAII behaviour of `unique_ptr` guarantees that all memory in the list is deallocated recursively. When `head` goes out of scope, it calls the destructor of node `(1)`, which calls the destructor of `(2)`, which calls the destructor of `(3)`. 
+Notice that we didn't have to make any calls to `delete`! The RAII behaviour of `unique_ptr` guarantees that all memory in the list is deallocated recursively. When `head` goes out of scope, it calls the destructor of node `(1)`, which calls the destructor of `(2)`, which calls the destructor of `(3)`.
 
-> [!IMPORTANT]  
-> ##### `short_answer.txt`  
+> [!IMPORTANT]
+> ##### `short_answer.txt`
 > **Q3:** This method of recursive deallocation through RAII works great for small lists, but may pose a problem for longer lists. Why? Hint: what is the limit for how "deep" a recursive function's call stack can grow?
 
 **Your task is to implement the function `create_list` which converts a `std::vector<T>` into a `unique_ptr<ListNode<T>>`.** The order of elements in the vector should be preserved in the list, and `nullptr` should be returned for an empty vector. There are many ways you could go about this; one is to construct the list in reverse (starting at the tail and working towards the head). **Note that you must use the `cs106l::unique_ptr` under the `cs106l` namespace, and not the `std::unique_ptr`!** Here is an algorithm you should follow in your implementation:
@@ -179,15 +179,15 @@ Notice that we didn't have to make any calls to `delete`! The RAII behaviour of 
     - 2c. Set `head` to `node`
 3. Finally, return `head`
 
-> [!IMPORTANT]  
-> ##### `short_answer.txt`  
+> [!IMPORTANT]
+> ##### `short_answer.txt`
 > **Q4.** In your implementation of points 2b and 2c, you may have a hard time getting the compiler to allow you to assign, for example, `node->next` to `head` as it will complain that there is no copy assignment operator. That is exactly right, as `unique_ptr` cannot be copied as we discussed previously!
 >
 > In order to get the behaviour we want, we must force the compiler to **move assign** `head` into `node->next` rather than copy assign. Recall from the move semantics lecture that we can do this by writing `node->next = std::move(head)`.
 >
 > What does `std::move` do in this context? Why is it safe to use `std::move` and move semantics here?
 
-> [!NOTE]  
+> [!NOTE]
 > Be careful of trying to use `size_t` as an index while looping backwards through a vector. `size_t` can only be a non-negative integer, and attempting to go below zero while checking the for loop bounds can lead to unexpected behaviour.
 > To fix this issue, try using an `int` instead.
 

@@ -1,4 +1,4 @@
-Assignment 6: Declarative Pipelines — short answers
+Assignment 13: Declarative Pipelines — short answers
 ====================================================
 
 Q1. Laziness. A views pipeline does no work until it is iterated. Give one

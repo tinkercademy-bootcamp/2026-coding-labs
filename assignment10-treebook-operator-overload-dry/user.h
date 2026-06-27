@@ -1,5 +1,5 @@
 /*
- * Assignment 4: TreeBook
+ * Assignment 10: TreeBook
  * Adapted by Tinkercademy from Stanford CS106L Assignment 5
  * (originally by Fabio Ibanez, with modifications by Jacob Roberts-Baca).
  */
@@ -16,7 +16,7 @@ public:
   size_t size() const;
   void set_friend(size_t index, const std::string& name);
 
-  /** 
+  /**
    * STUDENT TODO:
    * Your custom operators and special member functions will go here!
    */

@@ -1,4 +1,4 @@
-Assignment 7: Parallel Letter Frequency — short answers
+Assignment 14: Parallel Letter Frequency — short answers
 ========================================================
 
 Q1. Data races. What exactly is a data race, and why would having all worker

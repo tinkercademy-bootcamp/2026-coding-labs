@@ -1,5 +1,5 @@
 /*
- * Assignment 7: Parallel Letter Frequency
+ * Assignment 14: Parallel Letter Frequency
  * Ported by Tinkercademy from the Exercism C++ track exercise
  * "Parallel Letter Frequency", used under the MIT License.
  * See ATTRIBUTION.md. Re-themed and extended with a std::async part.

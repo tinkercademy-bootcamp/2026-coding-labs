@@ -2,11 +2,11 @@
   <img src="docs/marriage_pact.png" alt="Marriage Pact Logo" />
 </p>
 
-# Assignment 1: Marriage Pact
+# Assignment 3: Marriage Pact
 
 ## Overview
 
-Happy assignment 1! This is your warm-up with the STL — but with teeth. You'll touch **vectors**, **iterators**, **ranges**, **projections**, and the single most common iterator pitfall in C++: **invalidation**.
+Happy assignment 3! This is your warm-up with the STL — but with teeth. You'll touch **vectors**, **iterators**, **ranges**, **projections**, and the single most common iterator pitfall in C++: **invalidation**.
 
 These are the files you need to care about:
 
@@ -17,7 +17,7 @@ To download the starter code for this assignment, please see the instructions fo
 
 ## Running your code
 
-Make sure you are in the `assignment1/` directory and run:
+Make sure you are in the `assignment3-marriage-pact-vectors-iterators/` directory and run:
 
 ```sh
 g++ -std=c++20 main.cpp -o main

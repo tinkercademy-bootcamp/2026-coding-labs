@@ -3,7 +3,7 @@
 </p>
 
 
-# Assignment 3: Ispell
+# Assignment 8: Ispell
 
 ## Overview
 
@@ -12,7 +12,7 @@
 > - [Back to Basics: Templates in C++ — Nicolai Josuttis, CppCon 2022](https://youtu.be/HqsEHG0QJXU)
 > - [Back to Basics: Concepts in C++ — Nicolai Josuttis, CppCon 2024](https://youtu.be/jzwqTi7n-rg)
 
-Now that we've spent some time discussing the core components of the STL—containers, iterators, functors, and algorithms—and the key ingredient that powers it all—templates—let's put it all together! 
+Now that we've spent some time discussing the core components of the STL—containers, iterators, functors, and algorithms—and the key ingredient that powers it all—templates—let's put it all together!
 In this assignment, you will write the core logic for [Ispell](https://en.wikipedia.org/wiki/Ispell), an old Unix style spell checker that does a simple spellcheck. To do so, you will write some
 code that makes use of the `<algorithm>` header and the new C++ ranges library.
 
@@ -22,14 +22,14 @@ All of your code will go into `spellcheck.cpp`. Once you are done, you will have
   <img src="docs/spellcheck.png" alt="An example terminal run of the spellcheck program" />
 </p>
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > This assignment handout may look long, but there is actually not a lot of code that you need to write for this assignment! We have included a lot of extra details to make implementing this assignment (hopefully) more straightforward.
 
 To download the starter code for this assignment, please see the instructions for [**Getting Started**](../README.md#getting-started) on the course assignments repository.
 
 ## Running your code
 
-To run your code, first you'll need to compile it. Open up a terminal (if you are using VSCode, hit <kbd>Ctrl+\`</kbd> or go to **Terminal > New Terminal** at the top). Then make sure that you are in the `assignment3/` directory and run:
+To run your code, first you'll need to compile it. Open up a terminal (if you are using VSCode, hit <kbd>Ctrl+\`</kbd> or go to **Terminal > New Terminal** at the top). Then make sure that you are in the `assignment8-ispell-templates-concepts/` directory and run:
 
 ```sh
 g++ -std=c++20 main.cpp spellcheck.cpp -o main
@@ -81,7 +81,7 @@ Corpus tokenize(std::string& input);
 
 The `tokenize` method will take an input string and split it up into a set of `Token` objects. Take a look at the `Token` struct we've defined in `spellcheck.h`. A `Token` represents a single piece of content within a larger file: conceptually, it is just a single word appearing in a broader text; in code, it is a `std::string` apppearing somewhere in a file at index `src_offset`. Our goal is to split up an input file into a set of `Token`s, which we refer to as a `Corpus` (a `Corpus` is just a type-alias for an `std::set<Token>`).
 
-A key constraint for this problem is as follows: tokens are surrounded by whitespace and/or the boundaries of the input file. For example, the short string `"history will absolve me"` consists of four tokens: 
+A key constraint for this problem is as follows: tokens are surrounded by whitespace and/or the boundaries of the input file. For example, the short string `"history will absolve me"` consists of four tokens:
 
 * `{ content: "history", src_offset: 0 }`
 * `{ content: "will", src_offset: 8 }`
@@ -96,7 +96,7 @@ To implement `tokenize`, we will use the traditional STL methods like `std::tran
 
 Here's a step-by-step guide you can follow to accomplish this:
 
-1. **Step One: Identify all iterators to space characters**  
+1. **Step One: Identify all iterators to space characters**
     If we can get all iterators in the string pointing to whitespace characters, then we can more-or-less think of the tokens present in the string as the characters between any two whitespace characters. We almost want to call `find_if` multiple times to collect all of iterators to whitespace characters. Fortunately, we have provided you with a method to do just that, `find_all`.
 
     > 📄 [**`find_all`**](./utils.cpp)
@@ -109,8 +109,8 @@ Here's a step-by-step guide you can follow to accomplish this:
 
     We can get a vector of all the iterators to whitespace characters by calling `find_all` on our `source` string and passing in a unary predicate that checks if a character is whitespace. Thankfully, such a function comes built-in with C++: it is called `isspace`.
 
-    > 📄 [**`std::isspace`**](https://en.cppreference.com/w/c/string/byte)  
-    > 
+    > 📄 [**`std::isspace`**](https://en.cppreference.com/w/c/string/byte)
+    >
     > Note: when passing this function as a predicate, you must pass it as `std::isspace`[^1].
     >
     > ```
@@ -130,7 +130,7 @@ Here's a step-by-step guide you can follow to accomplish this:
 
       Sometimes you will see people write `::isspace`: this just tells C++ to look in the *global namespace* (not inside `std`) for `isspace`, and accomplishes the same thing.
 
-2. **Step Two: Generate tokens between consecutive space characters**  
+2. **Step Two: Generate tokens between consecutive space characters**
     Now that we have all of the iterators to space characters, we can consider a token as any range of characters between two consecutive iterators to space characters. To see why, consider this diagram:
 
     ```
@@ -158,12 +158,12 @@ Here's a step-by-step guide you can follow to accomplish this:
     > OutputIt std::transform(InputIt1 first1, InputIt1 last1, InputIt2 first2,
     >                         OutputIt d_first, BinaryOp binary_op);
     > ```
-    > 
-    > Given two equally-sized ranges, one starting at `first1` and the other starting at `first2` (such that end iterator of the first range is `last1`), applies a binary function `binary_op` to each pair of iterators from the two ranges (e.g. `binary_op(first1, first2)`, `binary_op(first1 + 1, first2 + 1)`, etc.) and stores the result to the output range (of the same size) starting at `d_first`. 
-    
+    >
+    > Given two equally-sized ranges, one starting at `first1` and the other starting at `first2` (such that end iterator of the first range is `last1`), applies a binary function `binary_op` to each pair of iterators from the two ranges (e.g. `binary_op(first1, first2)`, `binary_op(first1 + 1, first2 + 1)`, etc.) and stores the result to the output range (of the same size) starting at `d_first`.
+
     For our `binary_op`, we can provide a lambda function that takes in two `std::string::iterator`s (you might choose to use `auto` parameters for this lambda) `it1` and `it2`, and constructs the `Token` using the aforementioned `Token { source, it1, it2 }` constructor. Note that we must pass `source` to this constructor, so you will need to capture it in the lambda function you create! **You must capture `source` by reference, if you do not, your code will not run!**
 
-    > **‼️⚠️📢🚨 Warning 🚨📢⚠️‼️**  
+    > **‼️⚠️📢🚨 Warning 🚨📢⚠️‼️**
     > Just repeating that last part since students have had trouble with this part in the past. **You must capture `source` by reference in your lambda function** for the `Token` constructor to work. Refer to a C++ reference on lambda capture syntax if you don't remember how to do this.
 
     For the output range (`d_first`), we will first create a `std::set<Token>` to store the tokens that we find. Suppose we call that set `tokens`. Then, we can create an [`std::inserter(tokens, tokens.end())`](https://en.cppreference.com/w/cpp/iterator/inserter) to store the resulting tokens to.
@@ -180,7 +180,7 @@ Here's a step-by-step guide you can follow to accomplish this:
 
     For the input ranges (`first1`, `last1`, and `first2`), we will need to be a bit clever in our choice of iterators. We must choose iterators such that the `binary_op(first1, first2)` constructs the first token in the container, `binary_op(first1 + 1, first2 + 1)` constructs the second token in the container, etc. How can we manipulate these parameters such that we apply `binary_op` to consecutive pairs of whitespace iterators? Remember, `tokens.begin()` is the first iterator of the container, `tokens.begin() + 1` is the second iterator, etc. **Hint: there is nothing preventing the range given by `first1` from overlapping with the range given by `first2`!**
 
-3. **Step Three: Get rid of empty tokens**  
+3. **Step Three: Get rid of empty tokens**
     Some of the tokens we've produced so far will be empty (for example, what if there were multiple consecutive whitespace characters in our string). We will need to remove these tokens. Luckily, there is a [`std::erase_if` function](https://en.cppreference.com/w/cpp/container/set/erase_if) that can remove elements from a `std::set` which match some condition.
 
     > 📄 [**`std::erase_if`**](https://en.cppreference.com/w/cpp/container/set/erase_if)
@@ -226,10 +226,10 @@ To identify Misspellings, we will run the following algorithm. This time, we get
 
 Here's a step-by-step guide to implement this algorithm:
 
-1. **Step One: Skip words that are already correctly spelled.**  
+1. **Step One: Skip words that are already correctly spelled.**
     We'll know that a word is spelled correctly if it appears in `dictionary`: for example `dictionary.contains("world")` would return `true` whereas `dictionary.contains("wrld")` would return `false`. Our first step is to skip over words in `source` that have already been correctly spelled. To do this, we can use the `std::ranges::views::filter` view.
 
-    > 📄 [**`std::ranges::views::filter`**](https://en.cppreference.com/w/cpp/ranges/filter_view)  
+    > 📄 [**`std::ranges::views::filter`**](https://en.cppreference.com/w/cpp/ranges/filter_view)
     > ```cpp
     > template <ranges::viewable_range R, class Pred>
     > constexpr ranges::view auto filter(R&& r, Pred&& pred);
@@ -261,16 +261,16 @@ Here's a step-by-step guide to implement this algorithm:
 
     Your job in this step is to replace `/* A lambda function predicate */` with a lambda function that takes in a `Token` and returns `true` if that token's content is spelled **incorrectly** (we are only interested in misspelled words). To do this, you will need to make reference to `dictionary` inside of the lambda function, and so you will have to capture it. Should you capture it by reference or value?
 
-2. **Step Two: Find one-edit-away words in the dictionary using Damerau-Levenshtein**  
-    At this point, `view` represents a view over all the tokens in `source` that are *incorrectly spelled*. Now, we will transform each of these misspelled tokens into a corresponding `Misspelling` object (and generate suggestions in the process) using the `std::ranges::views::transform` view. 
+2. **Step Two: Find one-edit-away words in the dictionary using Damerau-Levenshtein**
+    At this point, `view` represents a view over all the tokens in `source` that are *incorrectly spelled*. Now, we will transform each of these misspelled tokens into a corresponding `Misspelling` object (and generate suggestions in the process) using the `std::ranges::views::transform` view.
 
-    >  📄 [**`std::ranges::views::transform`**](https://en.cppreference.com/w/cpp/ranges/transform_view)  
+    >  📄 [**`std::ranges::views::transform`**](https://en.cppreference.com/w/cpp/ranges/transform_view)
     > ```cpp
     > template <ranges::viewable_range R, class F>
     > constexpr ranges::view auto transform(R&& r, F&& func);
-    > 
+    >
     > template <class F>
-    > constexpr /*range adaptor closure*/ transform(F&& func); 
+    > constexpr /*range adaptor closure*/ transform(F&& func);
     > ```
     >
     > `transform(r, func)` yields a view that adapts an underlying range `r` such that, when iterating over the resulting view, each element `e` in `r` is transformed into a new element by applying `func(e)`. `transform(pred)` creates a *range adaptor* which can be applied to a range by chaining it with `operator|`.
@@ -279,24 +279,24 @@ Here's a step-by-step guide to implement this algorithm:
 
     ```cpp
     namespace rv = std::ranges::views;
-    auto view = source 
+    auto view = source
         | rv::filter(/* A lambda function predicate */)
         | rv::transform(/* A lambda function taking a Token -> Misspelling */);
     ```
     <sup>Note: this is just one approach: your solution may look different if you choose to use the `transform(r, func)` overload or if you don't use a `namespace rv` alias.</sup>
-    
+
     What should we put for `/* A lambda function taking a Token -> Misspelling */`? We should replace it with a lambda function that takes in a `Token` object and produces a `Misspelling` object that contains all of the suggested alternate spellings for `token`. To identify suggestions, we will search through `dictionary` for all the words whose Damerau-Levenshtein distance to `token.content` is exactly `1`. To find the Damerau-Levenshtein distance, you can use the provided `levenshtein` function.
 
-    > 📄 [**`levenshtein`**](./spellcheck.h)  
+    > 📄 [**`levenshtein`**](./spellcheck.h)
     > ```cpp
     > size_t levenshtein(const std::string& a, const std::string& b);
     > ```
     >
-    > Returns the Damerau-Levenshtein distance between `a` and `b`. Roughly speaking, this represents the number of modifications that must be performed to `a` in order to arrive at `b`. In reality, this function implements a highly optimized version of the Damerau-Levenshtein distance that will early exit if at any point the computed distance would be greater than `1`. 
+    > Returns the Damerau-Levenshtein distance between `a` and `b`. Roughly speaking, this represents the number of modifications that must be performed to `a` in order to arrive at `b`. In reality, this function implements a highly optimized version of the Damerau-Levenshtein distance that will early exit if at any point the computed distance would be greater than `1`.
 
     Note that going through `dictionary` and finding suggestions should happen for *each* misspelled word. **That means that you will need to nest another `std::ranges::views::filter` call inside the `/* A lambda function taking a Token -> Misspelling */`.** To construct the `std::set` of suggestions, you will need to materialize the nested view of suggested words into a set, triggering the lazy evaluation, using [overload (4) of the `std::set` constructor](https://en.cppreference.com/w/cpp/container/set/set).
 
-    > 📄 [**`std::set`**](https://en.cppreference.com/w/cpp/ranges/transform_view)  
+    > 📄 [**`std::set`**](https://en.cppreference.com/w/cpp/ranges/transform_view)
     > ```cpp
     > template <class InputIt>
     > set(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
@@ -319,12 +319,12 @@ Here's a step-by-step guide to implement this algorithm:
 
     This should be the return value of the `/* A lambda function taking a Token -> Misspelling */` lambda function in the code above.
 
-3. **Step Three: Drop misspellings with no suggestions.**  
+3. **Step Three: Drop misspellings with no suggestions.**
     At this point, `view` contains all of our misspelled words with their suggestions: it is a view over a collection of `Misspelling` objects. However, some of these `Misspelling` objects won't have any suggestions. For example, the gibberish word `"adskadnfknfs"` is definitely misspelled, but there's no word in the English dictionary that is one edit away from it. We would like to remove these suggestion-less Misspellings from our view before returning them.
 
     Once again, we can apply `std::ranges::views::filter` to `view`. You should have all the information you need to do this! After you filter the empty Misspellings, you'll want to materialize `view` into an `std::set<Misspelling>` and return it, which you can do through similar process described for `suggestions` in Part Two above!
 
-    > ⚠️ [**`std::ranges::to`**](https://en.cppreference.com/w/cpp/ranges/to)  
+    > ⚠️ [**`std::ranges::to`**](https://en.cppreference.com/w/cpp/ranges/to)
     > You may have seen `std::ranges::to` used to materialize a view of `char` into an `std::string`:
     > ```cpp
     > auto v = s | rv::filter(isalpha)
@@ -351,26 +351,26 @@ You can also spellcheck one of the given examples:
 ./main --stdin < "examples/(marquez).txt"
 ```
 
-> [!NOTE]  
-> **PowerShell Users:**  
+> [!NOTE]
+> **PowerShell Users:**
 > If you are using Microsoft PowerShell (Windows), the syntax to spellcheck an example will look a little bit different:
 > ```sh
 > Get-Content "examples/(marquez).txt" | ./main --stdin
 > ```
 
-> [!NOTE]  
+> [!NOTE]
 > We encourage you to play around with the spellcheck program and see what interesting behaviours you find. Here is the full list of options you can try:
-> 
+>
 > ```
 > ./main [--dict dict_path] [--stdin] [--unstyled] [--profile] text
-> 
+>
 > --dict dict_path  Sets the location of the dictionary. Defaults to words.txt
 > --stdin           Read from stdin. You can use this to pipe input from a file
 > --unstyled        Don't add any color to the output!
 > --profile         Profile the code, printing out how long tokenizing/spellcheck took
 > text              The text you want to spellcheck, if not using stdin
 > ```
-> 
+>
 > If you are looking for an added challenge, try running your code with the `--profile` option. Our spellchecking algorithm, despite using a simple brute
 > force approach that searches through the entire dictionary of about half a million words, still runs quite quickly! Feel free to look into ways you can
 > improve the performance of this algorithm (while still having correct output)! This is completely optional, but we would love to see what you come up with.

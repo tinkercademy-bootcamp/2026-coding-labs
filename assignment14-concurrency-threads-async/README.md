@@ -1,4 +1,4 @@
-# Assignment 7: Parallel Letter Frequency
+# Assignment 14: Parallel Letter Frequency
 
 ## Overview
 
@@ -16,7 +16,7 @@ each other.
 
 ## Running your code
 
-Make sure you are in the `assignment7-concurrency-threads-async/` directory.
+Make sure you are in the `assignment14-concurrency-threads-async/` directory.
 Concurrency needs the threading library, so **compile with `-pthread`**:
 
 ```sh

@@ -1,5 +1,5 @@
 /*
- * Assignment 1: Marriage Pact
+ * Assignment 3: Marriage Pact
  * Adapted by Tinkercademy from Stanford CS106L
  * (originally by Haven Whitney, with modifications by Fabio Ibanez
  * & Jacob Roberts-Baca).

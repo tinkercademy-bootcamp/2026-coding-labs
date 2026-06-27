@@ -1,5 +1,5 @@
 /*
- * Assignment 6: Declarative Pipelines
+ * Assignment 13: Declarative Pipelines
  * Ported by Tinkercademy from the "Modern-Only C++ Course" homework
  * (Lesson 6) by Simon Toth (HappyCerberus), used under the MIT License.
  * See ATTRIBUTION.md. Re-themed for the Tinkercademy Bootcamp.

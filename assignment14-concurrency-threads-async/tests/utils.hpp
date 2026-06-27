@@ -1,5 +1,5 @@
 /* ========================================================================= *
- * Test harness for Assignment 7: Parallel Letter Frequency.                  *
+ * Test harness for Assignment 14: Parallel Letter Frequency.                 *
  *                                                                           *
  * This file provides main(). It runs a small demo (./main --demo) and a     *
  * test mode (./main --test [name]) that checks the functions you implement  *

@@ -1,4 +1,4 @@
-Assignment 1: Marriage Pact — short answers
+Assignment 3: Marriage Pact — short answers
 =============================================
 
 Q1. reserve vs resize — and the capacity you chose in get_applicants.

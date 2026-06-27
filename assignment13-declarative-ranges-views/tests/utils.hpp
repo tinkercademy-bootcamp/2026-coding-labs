@@ -1,5 +1,5 @@
 /* ========================================================================= *
- * Test harness for Assignment 6: Declarative Pipelines.                      *
+ * Test harness for Assignment 13: Declarative Pipelines.                     *
  *                                                                           *
  * This file provides main(). It runs a small demo (./main --demo) and a     *
  * test mode (./main --test [name]) that checks each function/view you       *

@@ -1,4 +1,4 @@
-# Assignment 6: Declarative Pipelines
+# Assignment 13: Declarative Pipelines
 
 ## Overview
 
@@ -36,7 +36,7 @@ building toward the same idea: composition over iteration.
 
 ## Running your code
 
-Make sure you are in the `assignment6-declarative-ranges-views/` directory and
+Make sure you are in the `assignment13-declarative-ranges-views/` directory and
 run:
 
 ```sh

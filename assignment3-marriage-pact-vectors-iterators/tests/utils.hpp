@@ -1,5 +1,5 @@
 /* ========================================================================= *
- * Test harness for Assignment 1: Marriage Pact.                             *
+ * Test harness for Assignment 3: Marriage Pact.                             *
  *                                                                           *
  * This file provides main(). It runs the user-facing CLI modes              *
  * (./main "<name>", ./main --mixer) and also a test mode                    *

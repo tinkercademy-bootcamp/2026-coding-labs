@@ -1,5 +1,5 @@
 /*
- * Assignment 2: Unique Pointer
+ * Assignment 4: Unique Pointer
  * Adapted by Tinkercademy from Stanford CS106L Assignment 7
  * (originally by Jacob Roberts-Baca).
  */

@@ -1,5 +1,5 @@
 /*
- * Assignment 4: TreeBook
+ * Assignment 10: TreeBook
  * Adapted by Tinkercademy from Stanford CS106L Assignment 5
  * (originally by Fabio Ibanez, with modifications by Jacob Roberts-Baca).
  */

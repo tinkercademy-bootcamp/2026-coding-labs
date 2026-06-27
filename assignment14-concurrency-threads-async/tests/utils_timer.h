@@ -1,5 +1,5 @@
 /* ========================================================================= *
- * Timing harness for Assignment 7: Parallel Letter Frequency.                *
+ * Timing harness for Assignment 14: Parallel Letter Frequency.               *
  *                                                                           *
  * Provides `./main --time`, which benchmarks frequency_seq vs frequency vs   *
  * frequency_async on a larger corpus so you can see whether going parallel   *
